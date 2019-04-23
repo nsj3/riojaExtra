@@ -1,13 +1,13 @@
 Package: riojaExtra
 Type: Package
-Title: Additional functions for rioja (Analysis of Quaternary Science Data)
+Title: Additional Functions for the rioja Package
 Version: 0.1-1
 Date: 2019-04-15
 Author: Steve Juggins
 Maintainer: Steve Juggins <Stephen.Juggins@ncl.ac.uk>
 Depends: rioja
 Imports: vegan
-Description: Additional functions for rioja (Analysis of Quaternary science data).
+Description: Additional functions for the rioja package not needed by all users of the main package.
 License: GPL-2
 URL: http://www.staff.ncl.ac.uk/stephen.juggins/
 NeedsCompilation: yes
