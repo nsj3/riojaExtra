@@ -56,8 +56,8 @@ ter Braak, C.J.F. & Smilauer, P. (1998) CANOCO Reference Manual and User's Guide
 }
 
 \examples{
-library(rioja)
-pth <- system.file("example.datasets/RLGHLongCore.cep", package="rioja")
+library(riojaExtra)
+pth <- system.file("example.datasets/RLGHLongCore.cep", package="riojaExtra")
 rlgh <- read.CEP(pth)
 depth <- as.numeric(gsub("r_", "", rownames(rlgh)))
 mx <- apply(rlgh, 2, max)

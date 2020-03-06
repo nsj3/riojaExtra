@@ -39,8 +39,8 @@ Steve Juggins
 }
 
 \examples{
-library(rioja)
-pth <- system.file("example.datasets/WOLSFELD.TIL", package="rioja")
+library(riojaExtra)
+pth <- system.file("example.datasets/WOLSFELD.TIL", package="riojaExtra")
 WOLS <- read.Tilia(pth)
 sel <- WOLS$vars$Sums == "A" | WOLS$vars$Sums == "B"
 spec <- WOLS$data[, sel]
