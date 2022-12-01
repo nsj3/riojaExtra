@@ -21,5 +21,5 @@
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
 
-* linguist-vendored
-*.R linguist-vendored=false
+*.r linguist-detectable=true
+
