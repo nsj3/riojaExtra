@@ -41,7 +41,8 @@ SEXP WriteCornellFile(SEXP sexpData, SEXP sexpfName, SEXP sexpTitle, SEXP sexpSu
    catch (char *eM) {
       delete pData;
       SET_STRING_ELT(eMessage, 0, mkChar(eM));
-      UNPROTECT(2);
+//      UNPROTECT(2);
+      UNPROTECT(3);
       return eMessage;
    }
 
@@ -66,7 +67,7 @@ SEXP WriteCornellFile(SEXP sexpData, SEXP sexpfName, SEXP sexpTitle, SEXP sexpSu
       delete pData;
       sprintf(str, "Cannot open file %s", CHAR(STRING_ELT(sexpfName, 0)));
       SET_STRING_ELT(eMessage, 0, mkChar(str));
-      UNPROTECT(5);
+      UNPROTECT(4);
       return eMessage;
    }
 
@@ -199,7 +200,7 @@ SEXP WriteCornellFile(SEXP sexpData, SEXP sexpfName, SEXP sexpTitle, SEXP sexpSu
    }
    fclose(fout);
    delete pData;
-   UNPROTECT(5);
+   UNPROTECT(4);
    return eMessage;
 }
 }
