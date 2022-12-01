@@ -22,4 +22,4 @@
 *.RTF	 diff=astextplain
 
 *.r linguist-detectable=true
-
+*.cpp linguist-detectable=false
