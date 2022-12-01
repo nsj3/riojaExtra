@@ -23,3 +23,5 @@
 
 *.r linguist-detectable=true
 *.cpp linguist-detectable=false
+*.c linguist-detectable=false
+
