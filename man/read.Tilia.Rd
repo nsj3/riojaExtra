@@ -27,7 +27,7 @@ Returns a list with three names elements:
 \note{
 The code uses a combination of C and C++ and needs 1-byte structure alignment to read the Tilia binary file. It may crash some 64 bit versions of R.
 
-See function \code{\link[neotoma]{read.tilia}} in the package \code{neotoma} for a version to read Tilia *.tlx files.
+See function \code{read.tilia} in the package \code{neotoma} available on github for a version to read Tilia *.tlx files.
 }
 
 \author{ 
