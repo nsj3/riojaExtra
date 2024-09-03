@@ -9,3 +9,5 @@ Fixed bug reading multibyte strings in TILIA *.TIL files
 Version 0.1-4
 Fixed delete to delete [] in mat.cpp
 
+Version 0.1-5 
+Fixed Tilia import var codes with spaces / punctuation marks

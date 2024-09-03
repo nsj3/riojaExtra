@@ -1,8 +1,8 @@
 Package: riojaExtra
 Type: Package
 Title: Additional Functions for the rioja Package
-Version: 0.1-4
-Date: 2024-05-02
+Version: 0.1-5
+Date: 2024-09-03
 Author: Steve Juggins
 Maintainer: Steve Juggins <Stephen.Juggins@ncl.ac.uk>
 Depends: rioja

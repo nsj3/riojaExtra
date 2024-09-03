@@ -79,7 +79,7 @@ read.Tilia <- function(fName, removeChron=FALSE) {
   if (!is.null(ret[[1]])) {
     nms <- names(ret[[1]])
     names(ret[[1]]) <- iconv(nms, "ISO_8859-2", "UTF-8")
-    df <- as.data.frame(ret[[1]], check.names = TRUE)
+    df <- as.data.frame(ret[[1]], , check.names = FALSE, fix.empty.names=FALSE)
 #    rownames(df) <- make.unique(ret[[2]])
     
     ret[[3]] <- make.unique(iconv(ret[[3]], "ISO_8859-2", "UTF-8"))
