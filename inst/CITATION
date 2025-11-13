@@ -6,5 +6,5 @@ citEntry(entry="Manual",
 	title ="riojaExtra: Additional Functions for the rioja Package",
 	author = personList(as.person("Steve Juggins")),
 	year = 2017,
-	note = paste("R package version", meta$Version))
+	note = paste("R package version", meta$Version)
 )

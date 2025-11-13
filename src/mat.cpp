@@ -277,7 +277,7 @@ double ** dataptr(const dataMat &D)
    else if (DMP->F)
       return dataptr(*(DMP->F));
    else
-      return NULL;
+      return 0;
 }
 
 Index * Indexptr(const dataMat &D)
@@ -285,7 +285,7 @@ Index * Indexptr(const dataMat &D)
    if ((mattype(D.p->mType) == sparse)&&(D.p->C!=NULL))
       return D.p->C->p->I;
    else
-      return NULL;
+      return 0;
 }
 
 dataMat::dataMat()
@@ -419,7 +419,7 @@ bool dataMat::deleteRows(char *ii)
       delete[] p->samNum;
       p->samNum = l;
    }
-   delete n;
+   delete[] n;
    return true;
 }
 
@@ -464,7 +464,7 @@ bool dataMat::deleteCols(char *ii)
       delete[] p->spNam;
       p->spNam = s;
    }
-   delete n;
+   delete[] n;
    return true;
 }
 
@@ -954,7 +954,7 @@ int dMat::deleteRows(char *ii)
          }
       }
    }
-   delete n;
+   delete[] n;
 //   delete[] p->m;
    delete p->m;
    p->m = m;
@@ -1006,7 +1006,7 @@ int dMat::deleteCols(char *ii)
       }
    }
    p->c = j;
-   delete n;
+   delete[] n;
    return 0;
 }
 
@@ -1964,14 +1964,14 @@ bool cMat::deleteRows(char *ii)
    j = p->r-j;
    double **m = new double*[j];
    if (m==NULL) {
-      delete n;
+      delete[] n;
       return 1;
    }
    Index *I = new Index[j];
    if (I==NULL) {
 //      delete m;
       delete[] m;
-      delete n;
+      delete[] n;
       return 1;
    }
    for(i=0;i<p->r;i++) {
@@ -1984,7 +1984,7 @@ bool cMat::deleteRows(char *ii)
          I[n[i]] = p->I[i];
       }
    }
-   delete n;
+   delete[] n;
 //   delete [p->r] p->I;
 //	delete p->I;
 //   delete p->m;
@@ -2048,8 +2048,8 @@ bool cMat::deleteCols(char *ii)
       p->I[i] = III;
    }
    p->c = j;
-   delete newsp;
-   delete n;
+   delete[] newsp;
+   delete[] n;
    return true;
 }
 
@@ -2349,7 +2349,7 @@ dMat count(const dMat &f, enumDirection dir)
    }
    else
       throw("Direction out of range in dMat::count(dir)");
-   return NULL;
+   return 0;
 }
 
 
@@ -2379,7 +2379,7 @@ dMat sum(const dMat &f, enumDirection dir)
    }
    else
       throw("Integer out of range in sum (must be 0 or 1)");
-   return NULL;
+   return 0;
 }
 
 
@@ -2425,7 +2425,7 @@ dMat sumsq(const dMat &f, enumDirection dir)
    }
    else
       throw("Integer out of range in sumsq (must be 0 or 1)");
-   return NULL;
+   return 0;
 }
 
 double sumsq(const dMat &f)
@@ -2497,7 +2497,7 @@ dMat sd(const dMat &f, enumDirection dir)
 	}
 	else
 		throw("Integer out of range in sum (must be 0 or 1)");
-   return NULL;
+   return 0;
 }
 
 
@@ -2515,7 +2515,7 @@ dMat mean(const dMat &f, enumDirection dir)
    }
    else
       throw("Integer out of range in sum (must be 0 or 1)");
-   return NULL;
+   return 0;
 }
 
 void maxmin(const dMat &f, double &min, double &max)

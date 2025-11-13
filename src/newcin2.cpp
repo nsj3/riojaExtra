@@ -32,12 +32,14 @@ extern "C" {
    int getl2_(int *chan, char *format, int *ncoup, int *cursam, double *abun, int *tag);
    int getnam_(int *chan, char *spnam, char *samnam, int *nsp, int *nsam, int *tag);
    int closef_(int chan);
+   void 	Rprintf (const char *format,...);
+   
 }
 #endif
 
 void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char &type, long &nMissingValues, int &ColsWithNoData, int &RowsWithNoData, int &nCouplets, double impZero)
 {
-   int lsp, lsam, new_sample, ncoup, i, j, missing_species, missing_flag, nsam, nsp, current_sample;
+   int lsp, lsam, new_sample=0, ncoup, i, j, missing_species, missing_flag, nsam, nsp, current_sample;
    double zero_tolerance = 1.0E-08;
    type = full;
    nsam = 0;
@@ -48,7 +50,7 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
    int *iptr;
    sample *first = NULL;
    sample *next = NULL, *newS;
-   unsigned nitem=0;
+//   unsigned nitem=0;
    ColsWithNoData = RowsWithNoData = 0;
    char *format = new char[201];
    char *buffer = new char[201];
@@ -62,10 +64,10 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
    openf_(fname, buffer, format, &ncoup, &channel, &tag, &len2);
    if (tag) {
       ccleanup(S,membuffers, first);
-      if (tag==1) sprintf(errorline, "Error opening %s - file does not exist", fname);
-      else if (tag==2) sprintf(errorline, "Error reading header information from file %s", fname);
-      else if (tag==3) sprintf(errorline, "Unexpected end of file while reading header");
-      else if (tag==4) sprintf(errorline, "Integer for number of couplets not found");
+      if (tag==1) snprintf(errorline, 100, "Error opening %s - file does not exist", fname);
+      else if (tag==2) snprintf(errorline, 100, "Error reading header information from file %s", fname);
+      else if (tag==3) snprintf(errorline, 100, "Unexpected end of file while reading header");
+      else if (tag==4) snprintf(errorline, 100, "Integer for number of couplets not found");
       throw(errorline);
 //		return ERROR;
    }
@@ -90,7 +92,7 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
    delete [] tmp;
    int tlen = MIN((int)strlen(tit),80);
    char *title = new char[tlen+1];
-   sprintf(title,"%-.80s",tit);
+   snprintf(title, 100, "%-.80s",tit);
    lsam=0;
    missing_flag=0;
    if (nsam==0) { nsam = MAX_SAMPLES; }
@@ -122,8 +124,8 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
          getlin_(&channel, format, &ncoup, &new_sample, sp2, ab2, &tag);
          if (tag > 0) {
             ccleanup(S,membuffers, first);
-            if (tag==1) sprintf(errorline, "Error reading data for sample %d", new_sample);
-            else if (tag==2) sprintf(errorline, "Unexpected end of file reading sample %d", new_sample);
+            if (tag==1) snprintf(errorline, 100, "Error reading data for sample %d", new_sample);
+            else if (tag==2) snprintf(errorline, 100, "Unexpected end of file reading sample %d", new_sample);
             closef_(channel);
             throw(errorline);
 //            return ERROR;
@@ -137,8 +139,8 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
          getl2_(&channel, format, &ncoup, &new_sample, ab2, &tag);
          if (tag > 0) {
             ccleanup(S,membuffers, first);
-            if (tag==1) sprintf(errorline, "Error reading data for sample %d", new_sample);
-            else if (tag==2) sprintf(errorline, "Unexpected end of file reading sample %d", new_sample);
+            if (tag==1) snprintf(errorline, 100, "Error reading data for sample %d", new_sample);
+            else if (tag==2) snprintf(errorline, 100, "Unexpected end of file reading sample %d", new_sample);
             closef_(channel);
             throw(errorline);
 //            return ERROR;
@@ -171,7 +173,7 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
             m[ii] = ab[j];
             sp[ii] = sp[j];
             ii++;
-            nitem++;
+//            nitem++;
          }
 
 // SJ added next 2 lines to fix memory leak 15/10/02
@@ -206,7 +208,7 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
       }
       else if (((new_sample>0)&&(new_sample<current_sample))||(type==full && new_sample==current_sample)) {
          ccleanup(S,membuffers, first);
-         sprintf(errorline, "Non sequential sample found after sample %d", current_sample);
+         snprintf(errorline, 100, "Non sequential sample found after sample %d", current_sample);
          closef_(channel);
          throw(errorline);
 //         return ERROR;
@@ -221,7 +223,8 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
                continue;
             if (sp2[i] >= nsp) {
                ccleanup(S,membuffers, first);
-               sprintf(errorline, "Species number %d in sample %d\nis greater than maximum", sp2[i], new_sample);
+               snprintf(errorline, 100, 
+                        "Species number %d in sample %d\nis greater than maximum", sp2[i], new_sample);
                closef_(channel);
                throw(errorline);
 //               return ERROR;
@@ -390,7 +393,7 @@ void NewCornellIn2(dataMat &S, char * fname, int etf, double missing_value, char
    }
    if (bError) {
    	ccleanup(S,membuffers, first);
-      sprintf(errorline, "Missing names for %d species / samples.", bError);
+      snprintf(errorline, 100, "Missing names for %d species / samples.", bError);
       closef_(channel);
       throw(errorline);
 //      return ERROR;

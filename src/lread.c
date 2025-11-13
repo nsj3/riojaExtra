@@ -218,7 +218,7 @@ bad:
 		while(*--sp == '0')
 			++exp;
 		if (exp)
-			sprintf(sp+1, "e%ld", exp);
+			snprintf(sp+1, 100, "e%ld", exp);
 		else
 			sp[1] = 0;
 		f__lx = atof(s);

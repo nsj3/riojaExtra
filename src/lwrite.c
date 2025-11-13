@@ -107,10 +107,10 @@ l_g(char *buf, double n)
 		absn = -absn;
 	fmt = LLOW <= absn && absn < LHIGH ? LFFMT : LEFMT;
 #ifdef USE_STRLEN
-	sprintf(buf, fmt, n);
+	snprintf(buf, 100, fmt, n);
 	return strlen(buf);
 #else
-	return sprintf(buf, fmt, n);
+	return snprintf(buf, 100, fmt, n);
 #endif
 
 #else
@@ -134,7 +134,7 @@ l_g(char *buf, double n)
 		*b = 0;
 		goto f__ret;
 		}
-	sprintf(b, LGFMT, n);
+	snprintf(b, 100, LGFMT, n);
 	switch(*b) {
 #ifndef WANT_LEAD_0
 		case '0':

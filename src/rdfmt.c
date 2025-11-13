@@ -383,7 +383,7 @@ done:
 		while(*--sp == '0')
 			++exp;
 		if (exp -= scale1)
-			sprintf(sp+1, "e%ld", exp);
+			snprintf(sp+1, 100, "e%ld", exp);
 		else
 			sp[1] = 0;
 		x = atof(s);

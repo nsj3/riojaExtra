@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include "nutil.h"
 
-using namespace std;
+// using namespace std;
 
 void RLS(char *s)
 {

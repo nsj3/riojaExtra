@@ -87,7 +87,7 @@ nogood:
 		}
 	else
 		d1 = 0;
-	sprintf(buf,"%#.*E", d, dd);
+	snprintf(buf, 52, "%#.*E", d, dd);
 #ifndef VAX
 	/* check for NaN, Infinity */
 	if (!isdigit(buf[0])) {
@@ -111,10 +111,10 @@ nogood:
 	se = buf + d + 3;
 #ifdef GOOD_SPRINTF_EXPONENT /* When possible, exponent has 2 digits. */
 	if (f__scale != 1 && dd)
-		sprintf(se, "%+.2d", atoi(se) + 1 - f__scale);
+		snprintf(se, 100, "%+.2d", atoi(se) + 1 - f__scale);
 #else
 	if (dd)
-		sprintf(se, "%+.2d", atoi(se) + 1 - f__scale);
+		snprintf(se, 100, "%+.2d", atoi(se) + 1 - f__scale);
 	else
 		strcpy(se, "+00");
 #endif
@@ -242,10 +242,10 @@ wrt_F(ufloat *p, int w, int d, ftnlen len)
     }
   }
 #ifdef USE_STRLEN
-	sprintf(b = buf, "%#.*f", d, x);
+	snprintf(b = buf, 100, "%#.*f", d, x);
 	n = strlen(b) + d1;
 #else
-	n = sprintf(b = buf, "%#.*f", d, x) + d1;
+	n = snprintf(b = buf, 100, "%#.*f", d, x) + d1;
 #endif
 
 #ifndef WANT_LEAD_0

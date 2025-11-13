@@ -76,7 +76,7 @@ SEXP ReadTiliaFile(SEXP fN)
             SET_STRING_ELT(pCodeNames, i, mkChar(pnames[i].shortname));
             SET_STRING_ELT(pFullNames, i, mkChar(pnames[i].pollentypes));
             INTEGER(pCodeNums)[i] = pnames[i].num;
-            sprintf(str, "%c", pnames[i].sum);
+            snprintf(str, 5, "%c", pnames[i].sum);
             SET_STRING_ELT(pSums, i, mkChar(str));
             SET_VECTOR_ELT(mat, i, allocVector(REALSXP, nr));
             for (int j=0;j<nr;j++) {
@@ -124,7 +124,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
    char version=1;
    size_t retval = fread(name,10,1,fin);
    if (retval == 0) {
-		sprintf(strError,"Cannot read Tilia file");
+		snprintf(strError, 100, "Cannot read Tilia file");
 		return false;
 	}
 	 name[10] = '\0';
@@ -132,12 +132,12 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
   // first 6 characters must be: "tilia "
 
 	if (strncmp(name,"tilia ",6)) {
-		sprintf(strError,"This is not a TILIA file");
+		snprintf(strError, 100, "This is not a TILIA file");
 		return false;
 	}
 	double ver = atof(&name[5]);
 	if (ver < 1.07) {
-		sprintf(strError,"TILIA file must be at least version 1.07");
+		snprintf(strError, 100, "TILIA file must be at least version 1.07");
 		return false;
 	}
    if (ver > 1.99) {
@@ -155,7 +155,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
    PTYPES *ppnames = new PTYPES[m];
    *pnames = ppnames;
    if (! ppnames) {
-      sprintf(strError,"Out of memory allocating space for variable names");
+      snprintf(strError, 100, "Out of memory allocating space for variable names");
    	return false;
    }
    char * tmp = new char[1000];
@@ -163,7 +163,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
       char sum;
       if (version==1) {
          if (Tilia1ReadVar(fin, name, code, shortcode, spnum, sum)==FALSE) {
-		      sprintf(strError, "Unexpected EOF while reading taxon names");
+		      snprintf(strError, 100, "Unexpected EOF while reading taxon names");
 		   	return false;
    		}
          if (strlen(code) < 1)
@@ -172,7 +172,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
       }
       else {
          if (Tilia2ReadVar(fin, name, code, spnum, sum)==FALSE) {
-		      sprintf(strError,"Unexpected EOF while reading taxon names");
+		      snprintf(strError, 100, "Unexpected EOF while reading taxon names");
 	   		return false;
 		   }
       }
@@ -201,7 +201,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
 	char *sp = new char[m*9];
 	char *sam = new char[n*9];
 	if ((!Dl)||(!spnam)||(!samnam)||(!sp)||(!sam)) {
-		sprintf(strError,"Out of memory allocating storage for sample names");
+		snprintf(strError, 100, "Out of memory allocating storage for sample names");
 		return false;
 	}
 	for (i=0;i<m;i++)
@@ -218,13 +218,13 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
 	for (i=0;i<n;i++) {
       float num;
       if (TiliaReadSample(fin, num, name)==FALSE) {
-  			sprintf(strError,"Unexpected EOF while reading sample depths");
+  			snprintf(strError, 100, "Unexpected EOF while reading sample depths");
    		return false;
 		}
       char str[30];
       strncpy(S.samName(i), name, 8);
       if (strlen(name) < 1) {
-         sprintf(str, "%-g", num);
+         snprintf(str, 30, "%-g", num);
          strncpy(S.samName(i), str, 8);
       }
       S.samName(i)[8] = '\0';
@@ -238,7 +238,7 @@ bool TiliaBinIn(dataMat &S, FILE *fin, char *fname, PTYPES **pnames, double **pD
 	for (int j=0;j<m;j++) {
 		for (i=0;i<n;i++) {
   		   if (TiliaReadData(fin, byte, x)==FALSE) {
-			   sprintf(strError,"Error reading data for taxon %4d", m+1);
+			   snprintf(strError, 100, "Error reading data for taxon %4d", m+1);
 			   return false;
 		   }
          if (version==1) {

@@ -1,13 +1,13 @@
 Package: riojaExtra
 Type: Package
 Title: Additional Functions for the rioja Package
-Version: 0.1-5
-Date: 2024-09-03
+Version: 0.2-0
+Date: 2025-11-12
 Author: Steve Juggins
 Maintainer: Steve Juggins <Stephen.Juggins@ncl.ac.uk>
 Depends: rioja
 Imports: vegan
-Description: Additional functions for the rioja package not needed by all users of the main package.
+Description: Additional functions for the rioja package for reading / writing files in Cornell Ecology Program (CEP) or Tilia format.
 License: GPL-2
 URL: http://www.staff.ncl.ac.uk/stephen.juggins/
 NeedsCompilation: yes
